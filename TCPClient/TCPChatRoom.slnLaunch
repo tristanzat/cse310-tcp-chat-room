@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Debug Client and Server",
+    "Projects": [
+      {
+        "Path": "..\\TCPServer\\TCPServer.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "TCPClient.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
