@@ -1,0 +1,62 @@
+using System.Net.Sockets;
+using System.Text;
+
+namespace TCPClient
+{
+    internal class Client : IDisposable
+    {
+        private readonly string _host;
+        private readonly int _port;
+        private readonly TcpClient _client = new();
+        private NetworkStream? _stream;
+        private Task _receiveTask = Task.CompletedTask;
+
+        public Client(string host, int port)
+        {
+            _host = host;
+            _port = port;
+        }
+
+        public async Task ConnectAsync()
+        {
+            await _client.ConnectAsync(_host, _port);
+            _stream = _client.GetStream();
+
+            // Receive in the background so incoming messages don't block typing.
+            _receiveTask = ReceiveLoopAsync(_stream);
+        }
+
+        // Messages are newline-delimited UTF-8 text.
+        public async Task SendAsync(string message)
+        {
+            if (_stream == null) throw new InvalidOperationException("Not connected.");
+            await _stream.WriteAsync(Encoding.UTF8.GetBytes(message + "\n"));
+        }
+
+        public async Task DisconnectAsync()
+        {
+            _client.Close();
+            await _receiveTask;
+        }
+
+        private static async Task ReceiveLoopAsync(NetworkStream stream)
+        {
+            try
+            {
+                using var reader = new StreamReader(stream, Encoding.UTF8, leaveOpen: true);
+                string? line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+                Console.WriteLine("Disconnected from server.");
+            }
+            catch (Exception ex) when (ex is IOException or ObjectDisposedException)
+            {
+                // Connection closed locally or by the server.
+            }
+        }
+
+        public void Dispose() => _client.Dispose();
+    }
+}
