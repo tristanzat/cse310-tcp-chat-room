@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../TCPServer/TCPServer.csproj" Id="a14a18c3-fe4f-4503-9107-b0e55d06d6aa" />
+  <Project Path="TCPClient.csproj" />
+</Solution>

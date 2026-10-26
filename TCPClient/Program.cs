@@ -1,6 +1,6 @@
-﻿namespace TCPChatRoom
+﻿namespace TCPClient
 {
-    public class Program
+    internal class Program
     {
         public static void Main()
         {
