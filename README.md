@@ -1,34 +1,31 @@
 # Overview
 
-{Provide a description the networking program that you wrote. Describe how to use your software.  If you did Client/Server, then you will need to describe how to start both.}
+This software is a client-to-server TCP chat room. It handles multiple clients connecting to a single server. Opening this repository in Visual Studio should* allow you to run both the server and a client simultaneously (either by clicking Start or pressing F5).
 
-{Describe your purpose for writing this software.}
+*I don't know if `TCPChatRoom.slnLaunch` automatically adds itself as a startup project or not
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running (you will need to show two pieces of software running and communicating with each other) and a walkthrough of the code.}
+I wrote this software with the intent of learning how networking works.
 
 [Software Demo Video](http://youtube.com)
 
 # Network Communication
 
-{Describe the architecture that you used (client/server or peer-to-peer)}
 This uses a client/server architecture; the server hosts the chat room for clients to connect to.
 
-{Identify if you are using TCP or UDP and what port numbers are used.}
-This chat room uses TCP.
+This chat room uses TCP. Uses port 5000.
 
-{Identify the format of messages being sent between the client and server or the messages sent between two peers.}
+The messages are newline-delimited UTF-8 text.
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
-I used Visual Studio Community Edition 2026.
+I used Visual Studio Community Edition 2026 to develop this software.
 
 The server and client code is written in C#. This makes use of the `TcpClient` and `TcpListener` helper classes.
 
 # Useful Websites
 
-* [Microsoft Learn - TCP overview](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/sockets/tcp-classes)
-* [Web Site Name](http://url.link.goes.here)
+* [Use TcpClient and TcpListener - .NET | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/sockets/tcp-classes)
+* [C# Networking: Raw Sockets, TCP, and UDP Programming - DEV Community](https://dev.to/chakewitz/c-networking-raw-sockets-tcp-and-udp-programming-46oc)
 
 # Future Work
 
