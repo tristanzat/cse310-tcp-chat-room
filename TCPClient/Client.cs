@@ -12,6 +12,9 @@ namespace TCPClient
         private NetworkStream? _stream;
         private Task _receiveTask = Task.CompletedTask;
 
+        // Shown again after each incoming message so the user's prompt stays at the bottom.
+        public string Prompt { get; set; } = "";
+
         public Client(string host, int port)
         {
             _host = host;
@@ -43,7 +46,7 @@ namespace TCPClient
             await _receiveTask;
         }
 
-        private static async Task ReceiveLoopAsync(NetworkStream stream)
+        private async Task ReceiveLoopAsync(NetworkStream stream)
         {
             try
             {
@@ -51,7 +54,10 @@ namespace TCPClient
                 string? line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
+                    // Erase the current prompt line, print the message, then redraw the prompt.
+                    Console.Write("\r\e[2K");
                     Console.WriteLine(line);
+                    Console.Write(Prompt);
                 }
                 Console.WriteLine("Disconnected from server.");
             }

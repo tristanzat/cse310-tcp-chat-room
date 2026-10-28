@@ -15,7 +15,7 @@
                 return;
             }
 
-            using var client = new Client(Host, Port);
+            using var client = new Client(Host, Port) { Prompt = $"{username}: " };
             await client.ConnectAsync(username);
             Console.WriteLine($"Connected to {Host}:{Port}. Type a message and press Enter.");
 
@@ -26,7 +26,13 @@
                 Console.Write($"{username}: ");
                 input = Console.ReadLine();
                 if (input != null)
-                    await client.SendAsync($"{username}: {input}");
+                {
+                    // The server attaches the username, so send the raw input.
+                    await client.SendAsync(input);
+                    // Exit the input loop on quit
+                    if (input.Trim().Equals("/quit", StringComparison.OrdinalIgnoreCase))
+                        connected = false;
+                }
                 else
                     connected = false;
             }
