@@ -4,7 +4,7 @@ This software is a client-to-server TCP chat room. It handles multiple clients c
 
 *I don't know if `TCPChatRoom.slnLaunch` automatically adds itself as a startup project or not
 
-I wrote this software with the intent of learning how networking works.
+I wrote this software with the intent of learning how networking works. AI was used to help the development process by explaining what bugs were present in the code and how I could fix them.
 
 [Software Demo Video](http://youtube.com)
 
