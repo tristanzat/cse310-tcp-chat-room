@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../Shared/Shared.csproj" Id="c319bced-0bbf-42db-9360-3f8097a1d8f0" />
   <Project Path="../TCPServer/TCPServer.csproj" Id="a14a18c3-fe4f-4503-9107-b0e55d06d6aa" />
   <Project Path="TCPClient.csproj" />
 </Solution>

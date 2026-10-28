@@ -1,5 +1,6 @@
 using System.Net.Sockets;
 using System.Text;
+using Shared;
 
 namespace TCPClient
 {
@@ -17,10 +18,13 @@ namespace TCPClient
             _port = port;
         }
 
-        public async Task ConnectAsync()
+        public async Task ConnectAsync(string username)
         {
             await _client.ConnectAsync(_host, _port);
             _stream = _client.GetStream();
+
+            // Send the handshake
+            await SendAsync(Protocol.HandshakePrefix + username);
 
             // Receive in the background so incoming messages don't block typing.
             _receiveTask = ReceiveLoopAsync(_stream);

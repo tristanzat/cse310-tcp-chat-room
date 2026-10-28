@@ -14,7 +14,7 @@ This uses a client/server architecture; the server hosts the chat room for clien
 
 This chat room uses TCP. Uses port 5000.
 
-The messages are newline-delimited UTF-8 text.
+The messages are newline-delimited UTF-8 text. A handshake protocol is enforced to make sure that not any TCP client is able to send data to the server.
 
 # Development Environment
 

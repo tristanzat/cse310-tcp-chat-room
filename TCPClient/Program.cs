@@ -7,14 +7,28 @@
 
         public static async Task Main()
         {
+            Console.Write("Username: ");
+            string username = Console.ReadLine()?.Trim() ?? "";
+            if (username.Length == 0)
+            {
+                Console.WriteLine("Username is required.");
+                return;
+            }
+
             using var client = new Client(Host, Port);
-            await client.ConnectAsync();
+            await client.ConnectAsync(username);
             Console.WriteLine($"Connected to {Host}:{Port}. Type a message and press Enter.");
 
             string? input;
-            while ((input = Console.ReadLine()) != null)
+            bool connected = true;
+            while (connected)
             {
-                await client.SendAsync(input);
+                Console.Write($"{username}: ");
+                input = Console.ReadLine();
+                if (input != null)
+                    await client.SendAsync($"{username}: {input}");
+                else
+                    connected = false;
             }
 
             await client.DisconnectAsync();
